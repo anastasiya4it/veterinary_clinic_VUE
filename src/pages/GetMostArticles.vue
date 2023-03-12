@@ -1,24 +1,27 @@
 <template>
   <div>
     <div class="news">
-      <my-input
+      <!-- <my-input
         :model-value="searchTitle"
         @update:model-value="setSearchTitle"
         type="text"
         placeholder="Search by title"
-      ></my-input>
+      ></my-input> -->
 
-      <my-select
+      <!-- <my-select
         :model-value="getMostForTheSomeDay"
         @update:model-value="setGetMostForTheSomeDay"
         :options="sortOptionsForTheSomeDay"
-      ></my-select>
+      ></my-select> -->
 
-      <post-list
+      <!-- <pet-list
         :getTitle="getBestTitle"
-        :posts="searchTitleInSelect"
+        :cats="searchTitleInSelect"
         v-if="!isLoading"
-      ></post-list>
+      ></pet-list> -->
+
+      <pet-list :cats="cats" v-if="!isLoading"></pet-list>
+
       <div v-else>Loader</div>
     </div>
   </div>
@@ -26,93 +29,41 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import PostList from "@/components/PostList.vue";
+import PetList from "@/components/PetList.vue";
 import MyInput from "@/components/UI/MyInput.vue";
 import MySelect from "@/components/UI/MySelect.vue";
 export default {
   components: {
-    PostList,
+    PetList,
     MyInput,
     MySelect,
-  },
-  data() {
-    return {
-      sortOptions: [
-        {
-          id: 0,
-          value: "emailed",
-          name: "Get most emailed articles",
-        },
-        {
-          id: 1,
-          value: "shared",
-          name: "Get most shared articles on NYTimes.com",
-        },
-        { id: 2, value: "viewed", name: "Get most viewed articles" },
-      ],
-
-      sortOptionsForTheSomeDay: [
-        { id: 0, value: "1", name: "for the last day" },
-        { id: 1, value: "7", name: "for the last seven days" },
-        { id: 2, value: "30", name: "for the last thirty days" },
-      ],
-    };
   },
 
   methods: {
     ...mapMutations({
-      setApiKey: "post/setApiKey",
-      setGetMost: "post/setGetMost",
-      setGetMostForTheSomeDay: "post/setGetMostForTheSomeDay",
-
-      setPosts: "post/setPosts",
-      setIsLoading: "post/setIsLoading",
-      setSearchTitle: "post/setSearchTitle",
+      setCats: "cat/setCats",
+      setIsLoading: "cat/setIsLoading",
+      setSearchTitle: "cat/setSearchTitle",
     }),
     ...mapActions({
-      fetchNYTNews: "post/fetchNYTNews",
+      fetchCat: "cat/fetchCat",
     }),
   },
   computed: {
     ...mapState({
-      apiKey: (state) => state.post.apiKey,
-      getMost: (state) => state.post.getMost,
-      getMostForTheSomeDay: (state) => state.post.getMostForTheSomeDay,
-
-      posts: (state) => state.post.posts,
-      isLoading: (state) => state.post.isLoading,
-      searchTitle: (state) => state.post.searchTitle,
+      cats: (state) => state.cat.cats,
+      isLoading: (state) => state.cat.isLoading,
+      searchTitle: (state) => state.cat.searchTitle,
     }),
     ...mapGetters({
-      searchTitleInSelect: "post/searchTitleInSelect",
+      searchTitleInSelect: "cat/searchTitleInSelect",
     }),
-    getBestTitle() {
-      return (
-        this.sortOptions
-          .reduce(
-            (acc, item) =>
-              item.value == this.getMost ? (acc = item.name) : acc,
-            0
-          )
-          .replace(/Get m/i, "M") +
-        " " +
-        this.sortOptionsForTheSomeDay.reduce(
-          (acc, item) =>
-            item.value == this.getMostForTheSomeDay ? (acc = item.name) : acc,
-          0
-        )
-      );
-    },
   },
-  watch: {
-    getMostForTheSomeDay(newValue) {
-      this.fetchNYTNews(this.getMost, newValue, this.apiKey);
-    },
-  },
+  watch: {},
 
-  // mounted() {
-  // this.fetchNYTNews(this.getMost, this.getMostForTheSomeDay, this.apiKey);
-  // },
+  mounted() {
+    this.fetchCat();
+  },
 };
 </script>
 

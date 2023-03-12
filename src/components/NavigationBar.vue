@@ -1,40 +1,14 @@
 <template>
-  <div class="navigation-bar">
-    <div class="navig">
-      <my-button
-        class="item"
-        @click="
-          $router.push('/emailed') &&
-            setGetMost('emailed') &&
-            setGetMostForTheSomeDay('1') &&
-            setSearchTitle(' ')
-        "
-      >
-        Get most emailed articles
-      </my-button>
-
-      <my-button
-        class="item"
-        @click="
-          $router.push('/shared') &&
-            setGetMost('shared') &&
-            setGetMostForTheSomeDay('1') &&
-            setSearchTitle(' ')
-        "
-      >
-        Get most shared articles on NYTimes
-      </my-button>
-      <my-button
-        class="item"
-        @click="
-          $router.push('/viewed') &&
-            setGetMost('viewed') &&
-            setGetMostForTheSomeDay('1') &&
-            setSearchTitle(' ')
-        "
-      >
-        Get most viewed articles
-      </my-button>
+  <div class="navigation">
+    <div class="navigation-bar">
+      <figure>
+        <img src="@/images/logo.svg" alt="Happy Pet" width="108" height="100" />
+        <figcaption>Happy Pet</figcaption>
+      </figure>
+      <router-link to="/home">Home</router-link>
+      <router-link to="/cat">More about cats</router-link>
+      <router-link to="/dog">More about dogs</router-link>
+      <router-link to="/contacts">Contacts</router-link>
     </div>
   </div>
 </template>
@@ -44,60 +18,64 @@ import MyButton from "./UI/MyButton.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   components: { MyButton },
-  computed: {
-    ...mapState({
-      apiKey: (state) => state.post.apiKey,
-      getMost: (state) => state.post.getMost,
-      getMostForTheSomeDay: (state) => state.post.getMostForTheSomeDay,
-      searchTitle: (state) => state.searchTitle,
-    }),
-  },
-  methods: {
-    ...mapMutations({
-      setApiKey: "post/setApiKey",
-      setGetMost: "post/setGetMost",
-      setGetMostForTheSomeDay: "post/setGetMostForTheSomeDay",
-      setSearchTitle: "post/setSearchTitle",
-    }),
-    ...mapActions({
-      fetchNYTNews: "post/fetchNYTNews",
-    }),
-  },
-  watch: {
-    getMost(newValue) {
-      this.fetchNYTNews(newValue, this.getMostForTheSomeDay, this.apiKey);
-    },
-  },
+  computed: {},
 };
 </script>
 <style scoped>
-.navig {
+figure {
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
 }
-.navigation-bar {
+img {
+  margin-right: 15px;
+  /* box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.72); */
+}
+figcaption {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 39px;
+}
+.navigation {
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  display: none;
-  display: block;
+  /* display: none; */
+  /* display: block;
   height: 50px;
-  width: 100%;
-  background-color: rgba(114, 114, 114);
-  box-shadow: 2px 2px 5px grey;
+  width: 100%; */
 }
-
-.item {
-  width: 33%;
+.navigation-bar {
+  /* position: absolute; */
+  /* width: 595px; */
+  /* height: 26px; */
+  /* margin-left: 40%; */
+  /* margin-top: 106px; */
+  display: flex;
+  justify-content: space-evenly;
+  /* margin-right: 15px; */
+  align-items: center;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
 }
-
 a {
-  color: #ffffff;
+  color: #000;
   text-decoration-line: none;
+}
+
+a:hover,
+a:active {
+  font-weight: 600;
+  border-block-end: 2px solid #000000;
+}
+/* a:hover {
+  color: rgb(114, 0, 0);
 }
 a:hover {
   color: rgb(114, 0, 0);
-}
+} */
 </style>

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
-import {postModule} from '@/store/postModule'
+import {catBreeds} from '@/store/catBreeds'
 export default createStore({
   modules:{
-    post:postModule
+    cat:catBreeds,
 }, 
 })

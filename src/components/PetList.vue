@@ -1,9 +1,9 @@
 <template>
-  <div class="posts" v-if="posts.length > 0">
-    <h2>{{ getTitle }}</h2>
+  <div class="pets" v-if="cats.length > 0">
+    <!-- <h2>{{ getTitle }}</h2> -->
 
-    <post-item v-for="post in posts" :post="post" :key="post.id" />
-    <my-top />
+    <pet-item v-for="cat in cats" :cat="cat" :key="cat.id" :images="images" />
+    <!-- <div>{{ cats }}</div> -->
   </div>
   <div class="else" v-else>
     <h3>Nothing found</h3>
@@ -11,21 +11,21 @@
 </template>
 
 <script>
-import PostItem from "@/components/PostItem.vue";
+import PetItem from "@/components/PetItem.vue";
 import MyButton from "./UI/MyButton.vue";
 export default {
   props: {
-    posts: {
+    cats: {
       type: Array,
       required: true,
     },
-    getTitle: {
-      type: String,
+    images: {
+      type: Array,
       required: true,
     },
   },
   components: {
-    PostItem,
+    PetItem,
     MyButton,
   },
 };
@@ -34,7 +34,7 @@ export default {
 h2 {
   margin: 0 0 20px 20px;
 }
-.posts {
+.pets {
   display: block;
   list-style-type: decimal;
   margin-block-start: 1em;
