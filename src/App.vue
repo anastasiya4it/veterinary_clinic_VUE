@@ -40,7 +40,7 @@ export default {
 }
 
 .app {
-  padding: 20px;
+  padding: 10px;
   font-family: "Montserrat";
   font-style: normal;
 

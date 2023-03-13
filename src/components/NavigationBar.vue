@@ -38,23 +38,29 @@ figcaption {
   line-height: 39px;
 }
 .navigation {
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  /* background-color: #ffa857;
+  height: 150px; */
   /* display: none; */
   /* display: block;
   height: 50px;
   width: 100%; */
 }
+/* .bacground {
+  background-color: #ffa857;
+  height: 50px;
+} */
 .navigation-bar {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
+  /* font-size: 15px;
+  line-height: 18px; */
 }
 a {
   color: #000;

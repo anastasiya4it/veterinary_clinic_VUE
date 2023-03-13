@@ -3,6 +3,7 @@
     <!-- <div>{{ AllListCat }}</div> -->
     <!-- <div>{{ completeListURLImages }}</div> -->
     <pet-list :cats="cats" :images="urlImages" v-if="!isLoading"></pet-list>
+
     <div v-else>Loader</div>
   </div>
 </template>
@@ -44,20 +45,12 @@ export default {
   },
   mounted() {
     this.fetchCat();
-
-    this.setUrlImages([]);
-    this.idPetImages.map((item) => {
-      if (item) {
-        this.setOneIdImage(item);
-        this.fetchCatImages();
-      }
-    });
   },
 };
 </script>
 
 <style>
 .allcats {
-  margin: 5% 0 0 0;
+  margin: 10% 0 0 0;
 }
 </style>

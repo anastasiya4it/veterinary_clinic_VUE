@@ -1,4 +1,9 @@
 <template>
+  <div class="inline">
+    <my-checkbox type="checkbox" name="BreedFeatures" value="Bike" />
+    <label for="BreedFeatures">Breed features</label>
+  </div>
+  <my-input></my-input>
   <div class="pets" v-if="cats.length > 0">
     <!-- <h2>{{ getTitle }}</h2> -->
 
@@ -13,6 +18,8 @@
 <script>
 import PetItem from "@/components/PetItem.vue";
 import MyButton from "./UI/MyButton.vue";
+import MyCheckbox from "./UI/MyCheckbox.vue";
+import MyInput from "./UI/MyInput.vue";
 export default {
   props: {
     cats: {
@@ -27,10 +34,23 @@ export default {
   components: {
     PetItem,
     MyButton,
+    MyCheckbox,
+    MyInput,
   },
 };
 </script>
 <style scoped>
+.inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+label {
+  margin: 0 0 0 10px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4rem;
+}
 h2 {
   margin: 0 0 20px 20px;
 }

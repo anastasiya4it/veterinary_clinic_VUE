@@ -21,11 +21,18 @@ getters:{
     },
     completeListIdImages(state) {
       return [...state.cats].map((item) =>
-        
         (item.reference_image_id)?item?.reference_image_id:null
-         
       )
     },
+    // listUrl(state){
+    //   return [...state.idPetImages].map((item) => {
+    //     if (item) {
+    //       state.setOneIdImage(item);
+    //       actions.fetchCatImages();
+    //     }
+    //   });
+    // }
+
     
   },
 
@@ -54,7 +61,7 @@ mutations:{
      
 },
 actions:{
-    async fetchCat({state,commit,getters}) {
+      async fetchCat({state,commit,getters}) {
         try {
           
           commit('setIsLoading',true) ;
@@ -63,10 +70,39 @@ actions:{
           );
           
           commit('setCats',response.data);
+          // console.log(state.cats);
           commit('setStatusResponse',response.status);
 
           commit('setIdPetImages',getters.completeListIdImages);
-               } catch (err) {
+
+          commit('setUrlImages',[ ]);
+          [...state.idPetImages].map(async (item) => {
+                if (item) {
+                  try {
+                  commit('setIsLoading',true) ;
+                  commit('setOneIdImage',item);
+                  let idUrl=state.oneIdImage;
+                  
+                  const response = await axios.get(`https://api.thecatapi.com/v1/images/${state.oneIdImage}`);
+              
+                  commit('setUrlImages',[...state.urlImages,({idUrl:idUrl,url:response.data.url})]);
+                  commit('setStatusResponseImg', response.status);
+                                }
+                                 catch (err) {
+                        commit('setStatusResponse',err.request.status);
+                  console.log(err.request.status);
+                  
+                } 
+                finally {
+                    commit('setIsLoading',false) ;
+                    
+                    
+                       }
+                }
+              });   
+             
+         
+          } catch (err) {
                 commit('setStatusResponse',err.request.status);
           console.log(err.request.status);
           
@@ -76,25 +112,7 @@ actions:{
             
                }
       },
-      async fetchCatImages({state,commit,getters}) {
-        try {
-        
-        commit('setIsLoading',true) ;
-        let idUrl=state.oneIdImage;
-        const response = await axios.get(`https://api.thecatapi.com/v1/images/${state.oneIdImage}`);
-        
-          commit('setUrlImages',[...state.urlImages,({idUrl:idUrl,url:response.data.url})]);
-          commit('setStatusResponseImg', response.status);
-                        } catch (err) {
-                commit('setStatusResponse',err.request.status);
-          console.log(err.request.status);
-          
-        } finally {
-            commit('setIsLoading',false) ;
-            
-            
-               }
-      },
+     
 },
 namespaced:true
 } 
