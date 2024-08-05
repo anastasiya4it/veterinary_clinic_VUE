@@ -16,6 +16,8 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    steps:
-      - name: vuepress-deploy
-        uses: jenkey2011/vuepress-deploy@master
+    uses: testthedocs/github-pages-deploy-action@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BUILD_DIR: test/build/ # The folder, the action should deploy.
+        BUILD_SCRIPT: npm install && npm run-script build # The build script the action should run prior to deploying.
