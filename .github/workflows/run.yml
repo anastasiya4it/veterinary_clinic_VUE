@@ -17,7 +17,5 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build # The folder the action should deploy.
+      - name: vuepress-deploy
+        uses: jenkey2011/vuepress-deploy@master
